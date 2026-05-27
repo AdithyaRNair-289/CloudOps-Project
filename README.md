@@ -16,7 +16,7 @@ A fully integrated, industry-grade cloud infrastructure and DevOps system — si
 | 1 | Cloud Infrastructure & Virtualization | ✅ Complete |
 | 2 | Cloud Networking, Storage & Data | ✅ Complete |
 | 3 | Serverless Architecture & Microservices |  ✅ Complete |
-| 4 | Cloud Security, IAM & Monitoring | 🔄 In Progress |
+| 4 | Cloud Security, IAM & Monitoring |✅ Complete |
 | 5 | Automation & Infrastructure as Code | 🔄 In Progress |
 | 6 | CI/CD Pipeline Engineering | 🔄 In Progress |
 | 7 | Big Data, AI & Stream Processing | 🔄 In Progress |
