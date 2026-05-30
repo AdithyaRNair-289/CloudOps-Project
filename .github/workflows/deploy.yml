@@ -7,7 +7,7 @@ on:
     branches: [ master ]
 
 jobs:
-  build-and-test:
+  unit-integration-tests:
     runs-on: ubuntu-latest
     
     steps:
@@ -24,21 +24,43 @@ jobs:
         python -m pip install --upgrade pip
         pip install flask pytest
 
-    - name: Run tests
+    - name: Run unit tests
       run: |
-        echo "Running CloudOps tests..."
-        python -c "from flask import Flask; print('Flask import successful')"
-        echo "All tests passed!"
+        echo "Running CloudOps unit tests..."
+        python -m pytest CICD-Pipeline/test_app.py -v
+        echo "All unit tests passed!"
 
-  docker-build:
+  docker-build-push:
     runs-on: ubuntu-latest
-    needs: build-and-test
+    needs: unit-integration-tests
     
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
 
+    - name: Login to Docker Hub
+      uses: docker/login-action@v2
+      with:
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+
     - name: Build Docker image
       run: |
-        docker build -t cloudops-app ./Infrastructure
+        docker build -t adithyarnair/cloudops-app:latest ./Infrastructure
         echo "Docker build successful!"
+
+    - name: Push Docker image to Docker Hub
+      run: |
+        docker push adithyarnair/cloudops-app:latest
+        echo "Docker image pushed to Docker Hub!"
+
+  deploy-notification:
+    runs-on: ubuntu-latest
+    needs: docker-build-push
+    
+    steps:
+    - name: Deployment success notification
+      run: |
+        echo "CloudOps application successfully built, tested and deployed!"
+        echo "Docker Image: adithyarnair/cloudops-app:latest"
+        echo "Pipeline completed at: $(date)"
