@@ -1,0 +1,43 @@
+# CloudOps Enterprise Platform - Kubernetes Deployment
+# Module 3: Microservices Deployment
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cloudops-app
+  labels:
+    app: cloudops-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: cloudops-app
+  template:
+    metadata:
+      labels:
+        app: cloudops-app
+    spec:
+      containers:
+      - name: cloudops-app
+        image: adithyarnair/cloudops-app:latest
+        ports:
+        - containerPort: 5000
+        env:
+        - name: APP_NAME
+          value: "CloudOps Enterprise Platform"
+        - name: ENVIRONMENT
+          value: "Production"
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cloudops-service
+spec:
+  selector:
+    app: cloudops-app
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 5000
+  type: LoadBalancer
