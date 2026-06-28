@@ -41,3 +41,30 @@ connecting it to cloud APIs and databases, and integrating monitoring and logs.
 
 ## Screenshots
 Screenshots are available in the /screenshots folder
+
+## Integration Architecture (Planned Production Setup)
+
+The current deployment uses OutSystems' internal Aggregates/Entities for data storage, 
+since OutSystems Personal Environment (free tier) does not expose external network 
+calls or CI/CD webhook integration outside its own platform. In a production environment, 
+this app would integrate as follows:
+
+### Connecting to Real Cloud APIs & Database
+- The OutSystems app would call the AWS API Gateway endpoint 
+  (https://mfprs6zvff.execute-api.us-east-1.amazonaws.com/hello) via a REST API integration 
+  (Consume REST API in Service Studio) to fetch live Lambda data.
+- CloudService records would sync with the actual RDS MySQL database (database-1) through 
+  a REST API layer exposed by Lambda, rather than duplicating data manually inside OutSystems.
+
+### CI/CD Trigger Integration
+- A GitHub Actions workflow step would call the OutSystems Deploy API 
+  (POST to the ODC deployment endpoint) after the docker-build-push job succeeds, 
+  triggering an automatic redeployment of the CloudOps Enterprise Platform app.
+- This would complete the full pipeline: GitHub push → Unit tests → Docker build/push → 
+  OutSystems auto-deploy → Live dashboard update.
+
+### Why This Wasn't Live-Connected
+OutSystems Personal (free) environments restrict outbound REST integrations and deployment 
+API access to paid plans. This section documents the intended production architecture so 
+the integration design is clear, even though the live connection could not be demonstrated 
+on the free tier.
