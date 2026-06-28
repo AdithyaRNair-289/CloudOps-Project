@@ -39,3 +39,15 @@ This module covers setting up IAM users, roles, policies and CloudWatch monitori
 
 ## Screenshots
 Screenshots are available in the /screenshots folder
+
+## Billing Alerts
+- Enabled CloudWatch billing alerts in AWS Billing Preferences
+- Created CloudWatch Alarm: cloudops-billing-alarm
+- Metric: EstimatedCharges (USD)
+- Condition: Greater than $5 within 6 hours
+- Notification: SNS topic cloudops-alerts (email)
+
+## Encryption
+- RDS database-1: Encryption at rest enabled (AWS KMS key: aws/rds)
+- S3 bucket adithya-s3-website-123: Server-side encryption enabled (SSE-S3)
+- RDS connections: Encrypted in transit via SSL/TLS (VERIFY_IDENTITY mode)
