@@ -22,6 +22,7 @@ This module covers setting up IAM users, roles, policies and CloudWatch monitori
   - AmazonS3ReadOnlyAccess
   - AmazonEC2ReadOnlyAccess
   - CloudWatchReadOnlyAccess
+- Permissions Boundary: PowerUserAccess (limits maximum permissions even if broader policies are attached later)
 
 ## IAM Role
 - Role Name: cloudops-ec2-role
