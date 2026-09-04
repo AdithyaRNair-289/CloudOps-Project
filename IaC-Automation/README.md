@@ -46,3 +46,10 @@ terraform destroy
 
 ## Screenshots
 Screenshots are available in the /screenshots folder
+
+## Lambda Function (Serverless Component via Terraform)
+- Function Name: cloudops-terraform-lambda
+- Runtime: Python 3.9
+- IAM Role: cloudops-terraform-lambda-role (with AWSLambdaBasicExecutionRole policy)
+- Environment Variables: APP_NAME, ENVIRONMENT
+- Provisioned entirely via Terraform (main.tf) — proves IaC covers storage, networking, and serverless components as required
