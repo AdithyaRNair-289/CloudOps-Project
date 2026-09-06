@@ -37,3 +37,9 @@ Response: {"message": "Hello Adithya from CloudOps Lambda!", "service": "CloudOp
 
 ## Screenshots
 Screenshots are available in the /screenshots folder
+
+## Storage-Triggered Lambda (Event-Driven Workflow)
+- Function Name: cloudops-s3-trigger-function
+- Trigger: S3 bucket (cloudops-terraform-bucket-adithya) — fires on object create events
+- Verified via CloudWatch Logs: successfully logged uploaded file name and bucket name
+- Demonstrates event-driven microservices architecture beyond API-triggered functions
