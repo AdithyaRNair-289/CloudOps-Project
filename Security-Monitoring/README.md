@@ -48,6 +48,12 @@ Screenshots are available in the /screenshots folder
 - Condition: Greater than $5 within 6 hours
 - Notification: SNS topic cloudops-alerts (email)
 
+## Uptime Monitoring
+- CloudWatch Alarm: cloudops-ec2-uptime-alarm
+- Metric: StatusCheckFailed (EC2 instance status checks)
+- Condition: Greater than/equal to 1
+- Notification: SNS topic cloudops-alerts (email)
+
 ## Encryption
 - RDS database-1: Encryption at rest enabled (AWS KMS key: aws/rds)
 - S3 bucket adithya-s3-website-123: Server-side encryption enabled (SSE-S3)

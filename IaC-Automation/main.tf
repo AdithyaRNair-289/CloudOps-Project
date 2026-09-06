@@ -106,3 +106,25 @@ resource "aws_lambda_function" "cloudops_lambda" {
     Project = "CloudOps"
   }
 }
+# Data source to get the latest Amazon Linux 2 AMI (free tier eligible)
+data "aws_ami" "amazon_linux" {
+  most_recent = true
+  owners      = ["amazon"]
+
+  filter {
+    name   = "name"
+    values = ["amzn2-ami-hvm-*-x86_64-gp2"]
+  }
+}
+
+# EC2 Instance (VM provisioned via Terraform)
+resource "aws_instance" "cloudops_terraform_vm" {
+  ami                    = data.aws_ami.amazon_linux.id
+  instance_type          = "t3.micro"
+  vpc_security_group_ids = [aws_security_group.cloudops_sg.id]
+
+  tags = {
+    Name    = "cloudops-terraform-vm"
+    Project = "CloudOps"
+  }
+}
